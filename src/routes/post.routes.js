@@ -1,3 +1,4 @@
+const express = require("express");
 const { createPost, getAllPosts, getUserPosts, toggleLikePost, addComment } = require("../controller/post.controller");
 const authMiddleware = require("../middleware/auth.middleware");
 const upload = require("../config/upload.config");
