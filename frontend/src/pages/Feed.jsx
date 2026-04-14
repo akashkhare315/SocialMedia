@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Heart, MessageCircle, Share2, Send, Loader2 } from 'lucide-react';
 import api from '../api/axios';
 
@@ -107,10 +107,12 @@ export default function Feed() {
             <div key={post._id} className="card post-card">
               <div className="post-header">
                 <div className="post-author">
-                  <div className="author-avatar">
-                    {post.author?.username ? post.author.username.charAt(0).toUpperCase() : '?'}
-                  </div>
-                  <span>{post.author?.username || 'Unknown User'}</span>
+                  <Link to={`/profile/${post.author?.username}`} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', color: 'inherit' }}>
+                    <div className="author-avatar">
+                      {post.author?.username ? post.author.username.charAt(0).toUpperCase() : '?'}
+                    </div>
+                    <span>{post.author?.username || 'Unknown User'}</span>
+                  </Link>
                 </div>
                 <span className="post-date">{formatDate(post.createdAt)}</span>
               </div>

@@ -22,7 +22,9 @@ export default function Navbar() {
         <div className="nav-links">
           {user ? (
             <>
-              <span style={{ color: 'var(--text-secondary)' }}>Hello, {user.username}</span>
+              <Link to={`/profile/${user.username}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: '500' }}>
+                Hello, {user.username}
+              </Link>
               <button onClick={handleLogout} className="btn btn-ghost" title="Logout">
                 <LogOut size={20} />
               </button>
