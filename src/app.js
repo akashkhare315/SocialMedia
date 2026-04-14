@@ -19,6 +19,7 @@ const postRoutes = require("./routes/post.routes.js");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
 const errorHandler = require("./middleware/error.middleware.js");
 
 const app = express(); // ✅ Create app first
@@ -33,6 +34,15 @@ app.use(cookieParser());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "../frontend/dist");
+  app.use(express.static(frontendPath));
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(frontendPath, "index.html"));
+  });
+}
 
 // Global Error Handler (must be last middleware)
 app.use(errorHandler);
