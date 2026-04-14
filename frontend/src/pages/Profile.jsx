@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Heart, MessageCircle, Share2, Loader2 } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import api from '../api/axios';
+import PostCard from '../components/PostCard';
 
 export default function Profile() {
   const { username } = useParams();
@@ -81,31 +82,7 @@ export default function Profile() {
         ) : (
           <div className="post-list">
             {posts.map(post => (
-              <div key={post._id} className="card post-card">
-                <div className="post-header">
-                  <div className="post-author">
-                    <div className="author-avatar">
-                      {post.author?.username ? post.author.username.charAt(0).toUpperCase() : '?'}
-                    </div>
-                    <span>{post.author?.username || 'Unknown User'}</span>
-                  </div>
-                  <span className="post-date">{formatDate(post.createdAt)}</span>
-                </div>
-                <div className="post-content">
-                  {post.text}
-                </div>
-                <div className="post-actions">
-                  <button className="post-action-btn" title="Coming soon">
-                    <Heart size={18} /> Like
-                  </button>
-                  <button className="post-action-btn" title="Coming soon">
-                    <MessageCircle size={18} /> Comment
-                  </button>
-                  <button className="post-action-btn" style={{ marginLeft: 'auto' }} title="Coming soon">
-                    <Share2 size={18} /> Share
-                  </button>
-                </div>
-              </div>
+              <PostCard key={post._id} post={post} user={loggedInUser} />
             ))}
           </div>
         )}

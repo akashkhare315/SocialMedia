@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Heart, MessageCircle, Share2, Send, Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Send, Loader2 } from 'lucide-react';
 import api from '../api/axios';
+import PostCard from '../components/PostCard';
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
@@ -104,33 +105,7 @@ export default function Feed() {
       ) : (
         <div className="post-list">
           {posts.map(post => (
-            <div key={post._id} className="card post-card">
-              <div className="post-header">
-                <div className="post-author">
-                  <Link to={`/profile/${post.author?.username}`} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', color: 'inherit' }}>
-                    <div className="author-avatar">
-                      {post.author?.username ? post.author.username.charAt(0).toUpperCase() : '?'}
-                    </div>
-                    <span>{post.author?.username || 'Unknown User'}</span>
-                  </Link>
-                </div>
-                <span className="post-date">{formatDate(post.createdAt)}</span>
-              </div>
-              <div className="post-content">
-                {post.text}
-              </div>
-              <div className="post-actions">
-                <button className="post-action-btn" title="Coming soon">
-                  <Heart size={18} /> Like
-                </button>
-                <button className="post-action-btn" title="Coming soon">
-                  <MessageCircle size={18} /> Comment
-                </button>
-                <button className="post-action-btn" style={{ marginLeft: 'auto' }} title="Coming soon">
-                  <Share2 size={18} /> Share
-                </button>
-              </div>
-            </div>
+            <PostCard key={post._id} post={post} user={user} />
           ))}
         </div>
       )}
