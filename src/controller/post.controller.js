@@ -4,14 +4,20 @@ const userModel = require("../models/user.model");
 async function createPost(req, res, next) {
   try {
     const { text } = req.body;
-    if (!text) {
-      return res.status(400).json({ success: false, message: "Post text is required" });
+    if (!text && !req.file) {
+      return res.status(400).json({ success: false, message: "Post text or image is required" });
     }
 
-    const post = await postModel.create({
-      text,
+    const postData = {
+      text: text || "",
       author: req.user._id,
-    });
+    };
+    
+    if (req.file) {
+      postData.image = req.file.path; // Cloudinary streaming URL
+    }
+
+    const post = await postModel.create(postData);
 
     return res.status(201).json({ success: true, message: "Post created successfully", post });
   } catch (error) {

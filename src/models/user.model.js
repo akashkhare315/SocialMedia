@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
     maxlength: 160
+  },
+  avatar: {
+    type: String,
+    default: ""
   }
 }, { timestamps: true });
 

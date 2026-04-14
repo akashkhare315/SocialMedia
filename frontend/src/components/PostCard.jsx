@@ -63,6 +63,11 @@ export default function PostCard({ post, user }) {
       <div className="post-content">
         {post.text}
       </div>
+      {post.image && (
+        <div style={{ marginTop: '0.5rem' }}>
+          <img src={post.image} alt="Post" style={{ maxWidth: '100%', borderRadius: '8px', maxHeight: '400px', objectFit: 'cover' }} />
+        </div>
+      )}
       
       <div className="post-actions">
         <button 

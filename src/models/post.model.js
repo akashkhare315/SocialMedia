@@ -4,8 +4,10 @@ const postSchema = new mongoose.Schema(
   {
     text: {
       type: String,
-      required: true,
       maxlength: 1000,
+    },
+    image: {
+      type: String,
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
